@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: cp_wordpress  #Rename every time
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: dbadmin
+      WORDPRESS_DB_PASSWORD: Signiture95!
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress:/var/www/html
+    depends_on: 
+      - mysql
+  mysql:
+    image: mysql:latest
+    container_name: cp_db_wordpress
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress #Rename every time
+      MYSQL_USER: Connor
+      MYSQL_PASSWORD: Signiture95!
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - mysql:/var/lib/mysql/cp #Rename every time
+
+volumes:
+  wordpress:
+  mysql:
+
